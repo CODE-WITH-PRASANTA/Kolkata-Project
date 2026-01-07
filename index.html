@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Critical Payment Security Alert (Demo)</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="./Hack.js"></script>
+
+<style>
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: radial-gradient(circle at top, #0f172a, #000);
+  overflow: hidden;
+}
+
+.window {
+  border-radius: 14px;
+  border: 1px solid #7f1d1d;
+  box-shadow: 0 30px 80px rgba(0,0,0,.9);
+}
+
+.title-bar {
+  background: linear-gradient(to right, #7f1d1d, #991b1b);
+}
+
+.danger-glow {
+  box-shadow: 0 0 30px rgba(239,68,68,.7);
+}
+
+.pulse {
+  animation: pulse 1.1s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1 }
+  50% { opacity: .4 }
+  100% { opacity: 1 }
+}
+
+@media (max-width: 768px) {
+  .window {
+    max-width: 90%;
+  }
+  .grid-cols-1 {
+    grid-template-columns: 1fr;
+  }
+  .md\:col-span-2 {
+    grid-column: span 1;
+  }
+}
+
+/* =========================
+   RESPONSIVE MEDIA QUERIES
+   ========================= */
+
+/* Mobile Devices (≤ 640px) */
+@media (max-width: 640px) {
+  body {
+    overflow-y: auto;
+  }
+
+  .window {
+    max-width: 95%;
+    border-radius: 10px;
+  }
+
+  .title-bar {
+    padding: 10px 14px;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+    text-align: center;
+  }
+
+  .grid {
+    gap: 16px;
+  }
+
+  img {
+    max-width: 220px;
+  }
+
+  .danger-glow {
+    box-shadow: 0 0 18px rgba(239, 68, 68, 0.6);
+  }
+
+  .text-2xl {
+    font-size: 1.4rem;
+  }
+
+  .text-3xl {
+    font-size: 1.6rem;
+  }
+
+  .fixed.bottom-0 {
+    font-size: 10px;
+    padding: 6px;
+  }
+}
+
+/* =========================
+   MOBILE ORDER FIX (CALL IN MIDDLE)
+   ========================= */
+@media (max-width: 640px) {
+
+  /* Convert RIGHT section into flex */
+  .md\:col-span-2 {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* TARGET PAYMENT DETAILS BOX */
+  .md\:col-span-2 > .bg-black.border-red-800 {
+    order: 3;   /* ⬇ move payment details DOWN */
+  }
+
+  /* TARGET FAKE CALL BLOCK */
+  .md\:col-span-2 > .mt-6.bg-black.border-red-700 {
+    order: 2;   /* ⬆ move CALL to MIDDLE */
+    margin: 18px auto;
+    width: 100%;
+    max-width: 320px;
+    text-align: center;
+  }
+
+  /* Title & description stay on top */
+  .md\:col-span-2 > h1,
+  .md\:col-span-2 > p {
+    order: 1;
+  }
+
+  /* Reduce number size slightly */
+  .md\:col-span-2 .text-2xl {
+    font-size: 1.4rem;
+  }
+}
+
+ 
+</style>
+</head>
+
+<body>
+
+<!-- DARK OVERLAY -->
+<div class="absolute inset-0 bg-black/90"></div>
+
+<!-- MAIN -->
+<div class="relative z-10 min-h-screen flex items-center justify-center px-3">
+
+<div id="main-window" class="window w-full max-w-5xl bg-gray-900 text-gray-100 hidden">
+
+<!-- TITLE -->
+<div class="title-bar px-5 py-3 flex justify-between items-center rounded-t-xl">
+  <span class="text-red-300 font-bold text-sm pulse">⚠ CRITICAL SECURITY ALERT</span>
+  <span class="text-red-400 text-lg">●</span>
+</div>
+
+<!-- CONTENT -->
+<div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+
+<!-- LEFT -->
+<div class="text-center">
+  <img src="./asserts/PayPal.jpeg"
+       class="w-full max-w-xs mx-auto rounded-xl border border-red-700 "
+       alt="Invoice Demo">
+  <p class="text-xs text-gray-400 mt-3">Simulated Invoice (Demo)</p>
+</div>
+
+<!-- RIGHT -->
+<div class="md:col-span-2">
+
+<h1 class="text-2xl md:text-3xl font-bold text-red-500 mb-2">
+Unauthorized Payment Detected
+</h1>
+
+<p class="text-sm text-gray-300 mb-4">
+Immediate review required. This screen demonstrates how high-pressure fraud alerts appear.
+</p>
+
+<div class="bg-black border border-red-800 rounded-xl p-5">
+
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm mb-4">
+  <div>
+    <p class="text-gray-400">Payment Method</p>
+    <p class="font-semibold">Bitcoin (BTC)</p>
+  </div>
+  <div>
+    <p class="text-gray-400">Reference ID</p>
+    <p class="font-semibold">DEMO-BTC-70099</p>
+  </div>
+  <div>
+    <p class="text-gray-400">Amount</p>
+    <p class="text-xl font-bold text-red-400">$700.99</p>
+  </div>
+  <div>
+    <p class="text-gray-400">Status</p>
+    <p class="font-bold text-yellow-400">High Risk</p>
+  </div>
+</div>
+
+<div class="bg-red-950 border border-red-700 rounded-lg p-4 text-sm">
+  <p class="font-bold text-red-400 mb-1">⚠ SECURITY WARNING</p>
+  <p class="text-gray-300">
+    Fraud messages often demand urgent action and show phone numbers.
+    Do not trust alerts asking you to call immediately.
+  </p>
+</div>
+
+</div>
+
+<!-- FAKE CALL BLOCK -->
+<div class="mt-6 bg-black border border-red-700 rounded-xl p-4 danger-glow">
+  <p class="text-red-400 font-bold text-sm mb-2">
+    🚨 Common Scam Pattern
+  </p>
+
+  <a href="tel:+1800XXX XXXX" id="fake-call-btn"
+     class="cursor-pointer text-center rounded-lg p-3">
+    <p class="text-xs text-red-200">Scam alerts show numbers like</p>
+    <p class="text-2xl font-bold tracking-widest text-white">
+      +1-800-XXX-XXXX
+    </p>
+  </a>
+</div>
+
+<p class="mt-4 text-xs text-gray-500">
+Educational simulation • No real transaction
+</p>
+
+</div>
+</div>
+</div>
+
+<!-- START PROMPT -->
+<div id="click-prompt" class="fixed inset-0 flex items-center justify-center bg-black text-center px-4">
+  <div class="bg-gray-900 border border-red-700 rounded-xl p-8 ">
+    <h1 class="text-3xl font-bold text-red-500 mb-3">View Payment Details</h1>
+    <p class="text-gray-300">Tap anywhere to continue</p>
+  </div>
+</div>
+
+<!-- WARNING MODAL -->
+<div id="call-warning"
+     class="fixed inset-0 bg-black/95 hidden z-50 flex items-center justify-center px-4">
+  <div class="bg-gray-900 border border-red-700 rounded-xl max-w-md w-full p-6 text-center danger-glow">
+    <h2 class="text-2xl font-bold text-red-500 mb-3">⚠ Scam Protection</h2>
+    <p class="text-gray-300 text-sm mb-4">
+      If you think your account is compromised, call PayPal's official support at 1-888-221-1161.
+    </p>
+    <p class="text-gray-300 text-sm mb-4">
+      Do not call numbers provided in suspicious alerts.
+    </p>
+    <button id="close-warning"
+            class="w-full bg-red-700 hover:bg-red-600 text-white font-semibold py-2 rounded-lg">
+      Understood
+    </button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="fixed bottom-0 w-full bg-red-900 text-gray-200 text-xs py-2 text-center">
+Cybersecurity Awareness • Demo Only
+</div>
+
+<script>
+const mainWindow = document.getElementById("main-window");
+const clickPrompt = document.getElementById("click-prompt");
+const fakeCallBtn = document.getElementById("fake-call-btn");
+const callWarning = document.getElementById("call-warning");
+const closeWarning = document.getElementById("close-warning");
+let synth;
+
+fakeCallBtn.onclick = () => callWarning.classList.remove("hidden");
+closeWarning.onclick = () => callWarning.classList.add("hidden");
+
+function speakText(text) {
+  const u = new SpeechSynthesisUtterance(text);
+  u.rate = 0.9;
+  u.pitch = 0.6;
+  speechSynthesis.speak(u);
+}
+
+function startAlarm() {
+  synth = new Tone.Synth().toDestination();
+  new Tone.Loop(t => synth.triggerAttackRelease("A5","16n",t),"2n").start(0);
+  Tone.Transport.start();
+}
+
+function startDemo() {
+  clickPrompt.classList.add("hidden");
+  mainWindow.classList.remove("hidden");
+  document.documentElement.requestFullscreen().catch(()=>{});
+  startAlarm();
+  speakText("🔴 SECURITY ALERT – IMMEDIATE ACTION REQUIRED This transaction has been approved by the system and is currently under active processing. If you did not authorize this transaction or wish to stop it, immediate action is required.To stop or cancel the transaction, you must contact the helpline support number immediately for verification and assistance. Please note that any delay in response may result in permanent deduction, and once the transaction is completed, it cannot be reversed.");
+}
+
+document.body.addEventListener("click", () => {
+  if (Tone.context.state !== "running") {
+    Tone.start().then(startDemo);
+  } else startDemo();
+}, { once:true });
+
+window.onbeforeunload = e => { e.preventDefault(); e.returnValue=""; };
+</script>
+
+</body>
+</html>
